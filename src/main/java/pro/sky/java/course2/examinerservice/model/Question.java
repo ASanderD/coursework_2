@@ -40,4 +40,5 @@ public class Question {
     public String toString() {
         return "Вопрос: %s, ответ: %s".formatted(question, answer);
     }
+
 }

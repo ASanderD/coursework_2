@@ -11,13 +11,13 @@ import java.util.*;
 
 @Service
 @Component
-public class JavaQuestionService implements QuestionService {
+public class MathQuestionService implements QuestionService {
     private final Random random = new Random();
 
     private final QuestionRepository questionRepository;
 
     @Autowired
-    public JavaQuestionService(@Qualifier("javaQuestionRepository") QuestionRepository questionRepository) {
+    public MathQuestionService(@Qualifier("mathQuestionRepository") QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 

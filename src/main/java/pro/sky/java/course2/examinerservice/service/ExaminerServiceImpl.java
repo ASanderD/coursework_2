@@ -1,5 +1,7 @@
 package pro.sky.java.course2.examinerservice.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.examinerservice.exceptions.ExceededNumberOfQuestionException;
 import pro.sky.java.course2.examinerservice.model.Question;
@@ -8,23 +10,30 @@ import java.util.*;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
-    private final QuestionService questionService;
 
-    public ExaminerServiceImpl(QuestionService questionService) {
-        this.questionService = questionService;
+    private final QuestionService javaQuestionService;
+
+    private final QuestionService mathQuestionService;
+
+    @Autowired
+    public ExaminerServiceImpl(@Qualifier("javaQuestionService") QuestionService javaQuestionService, @Qualifier("mathQuestionService") QuestionService mathQuestionService) {
+        this.javaQuestionService = javaQuestionService;
+        this.mathQuestionService = mathQuestionService;
     }
 
-    @Override
-    public Collection<Question> getQuestion(int amount) {
-        if (amount > questionService.getAll().size()) {
+       @Override
+    public Collection<Question> getQuestion(int numbersOfQuestions) {
+        if (numbersOfQuestions > (javaQuestionService.getAll().size() + mathQuestionService.getAll().size())) {
             throw new ExceededNumberOfQuestionException();
         }
         Set<Question> questionsForExam = new HashSet<>();
-        for (int i = 0; i < amount; i++) {
-            while (questionsForExam.size() < amount) {
-                questionsForExam.add(questionService.getRandomQuestion());
+            while (questionsForExam.size() < numbersOfQuestions) {
+                questionsForExam.add(javaQuestionService.getRandomQuestion());
+                if (questionsForExam.size() < numbersOfQuestions) {
+                    questionsForExam.add(mathQuestionService.getRandomQuestion());
+                }
             }
-        }
+
         return questionsForExam;
     }
 }

@@ -15,19 +15,18 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class JavaQuestionServiceTest {
+class MathQuestionServiceTest {
 
     @Mock
     private QuestionRepository questionRepository;
     @InjectMocks
-    private JavaQuestionService javaQuestionService;
+    private MathQuestionService mathQuestionService;
 
     List<Question> questionsTest = List.of(new Question("Сколько бит занимает целое число типа byte", "8"),
-            new Question("Сколько бит занимает целое число типа short", "16"),
-            new Question("Сколько бит занимает целое число типа int", "32"),
-            new Question("Сколько бит занимает целое число типа long", "64"),
-            new Question("Сколько бит занимает число с плавающей точкой типа float", "32")
-
+            new Question("2+2= ", "4"),
+            new Question("5+5= ", "10"),
+            new Question("3+3= ", "6"),
+            new Question("8*8= ", "64")
     );
 
     @BeforeEach
@@ -37,7 +36,7 @@ class JavaQuestionServiceTest {
 
     @Test
     void getRandomQuestion() {
-        assertThat(javaQuestionService.getRandomQuestion()).isIn(javaQuestionService.getAll());
+        Question actual = mathQuestionService.getRandomQuestion();
+        assertThat(actual).isIn(mathQuestionService.getAll());
     }
-
 }

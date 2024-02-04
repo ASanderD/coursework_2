@@ -1,10 +1,14 @@
-package pro.sky.java.course2.examinerservice.service;
+package pro.sky.java.course2.examinerservice.repository;
 
+import jakarta.annotation.PostConstruct;
 import pro.sky.java.course2.examinerservice.model.Question;
 
 import java.util.Collection;
 
-public interface QuestionService {
+public interface QuestionRepository {
+    @PostConstruct
+    void init();
+
     Question add(String question, String answer);
 
     Question add(Question question);
@@ -14,5 +18,4 @@ public interface QuestionService {
 
     Collection<Question> getAll();
 
-    Question getRandomQuestion();
 }

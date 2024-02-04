@@ -10,7 +10,7 @@ import pro.sky.java.course2.examinerservice.service.ExaminerService;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/exam/java")
+@RequestMapping("/exam")
 public class ExamController {
     ExaminerService examinerService;
 
@@ -19,7 +19,7 @@ public class ExamController {
     }
 
     @GetMapping("/getQuestions")
-    public Collection<Question> getQuestions(@RequestParam int amount) {
-        return examinerService.getQuestion(amount);
+    public Collection<Question> getQuestions(@RequestParam int numbersOfQuestions) {
+        return examinerService.getQuestion(numbersOfQuestions);
     }
 }
